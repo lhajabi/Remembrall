@@ -38,11 +38,13 @@
         app:layout_constraintStart_toStartOf="@+id/list"
         app:layout_constraintTop_toBottomOf="@+id/list">
 
-        <EditText
-            android:id="@+id/add_act"
-            android:layout_width="260dp"
+        <Spinner
+            android:id="@+id/spinnerV"
+            android:textColor="@color/black"
+            android:layout_width="270dp"
             android:layout_height="wrap_content"
-            android:hint="Name" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ResetButton" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
