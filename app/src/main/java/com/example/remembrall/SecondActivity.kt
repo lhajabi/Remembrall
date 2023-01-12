@@ -2,6 +2,7 @@ package com.example.remembrall
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.google.android.gms.location.*
 import com.google.android.gms.tasks.CancellationToken
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.tasks.OnTokenCanceledListener
+
 
 class SecondActivity : AppCompatActivity() {
     public var latLong : String = "32.023328,35.876253"
@@ -35,7 +37,7 @@ class SecondActivity : AppCompatActivity() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
-            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,),101)
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),101)
         }
         var loc : FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         loc.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, object : CancellationToken() {
@@ -45,16 +47,19 @@ class SecondActivity : AppCompatActivity() {
                 latLong = if (location == null) "NULL"
                 else location.latitude.toString()+ location.longitude.toString()
 
-               // Toast.makeText(this, "success "+latLong, Toast.LENGTH_SHORT).show()
+               Toast.makeText(this, "success "+latLong, Toast.LENGTH_LONG).show()
             }
         loc.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, object : CancellationToken() {
             override fun onCanceledRequested(p0: OnTokenCanceledListener) = CancellationTokenSource().token
             override fun isCancellationRequested() = false })
             .addOnFailureListener(){
                 latLong = "FAIL"
-                Toast.makeText(this, "fail", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "fail", Toast.LENGTH_LONG).show()
             }
-        Toast.makeText(this, latLong, Toast.LENGTH_SHORT).show()
+
+        val toast = Toast.makeText(this, latLong, Toast.LENGTH_LONG)
+        toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 0)
+        toast.show()
         return
     }
 
