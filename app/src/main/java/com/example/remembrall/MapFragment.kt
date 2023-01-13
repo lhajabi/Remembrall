@@ -6,13 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapsFragment : Fragment() {
+class MapFragment : Fragment() {
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -24,11 +23,11 @@ class MapsFragment : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val PSUT = LatLng(32.023328, 35.876253)
+        val psut = LatLng(32.023328, 35.876253)
         googleMap.clear()
-        googleMap.animateCamera(CameraUpdateFactory.newLatLng(PSUT))
-        googleMap.addMarker(MarkerOptions().position(PSUT).title("Marker in PSUT"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(PSUT))
+        googleMap.animateCamera(CameraUpdateFactory.newLatLng(psut))
+        googleMap.addMarker(MarkerOptions().position(psut).title("Marker in PSUT"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(psut))
 
     }
 

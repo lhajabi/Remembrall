@@ -15,7 +15,7 @@ import com.google.android.gms.tasks.OnTokenCanceledListener
 
 
 class SecondActivity : AppCompatActivity() {
-    public var latLong : String = "32.023328,35.876253"
+    private var latLong : String = "32.023328,35.876253"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
@@ -24,22 +24,22 @@ class SecondActivity : AppCompatActivity() {
         val btnSave:Button = findViewById(R.id.button3)
         getLocation()
         txtLoc.text=latLong
-        btnShow.setOnClickListener(){
+        btnShow.setOnClickListener {
             setContentView(R.layout.fragment_map)
         }
-        btnSave.setOnClickListener(){
+        btnSave.setOnClickListener {
             //add txtLoc.text to data base
         }
 
     }
 
-    public fun getLocation(){
+    private fun getLocation(){
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),101)
         }
-        var loc : FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        val loc : FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
         loc.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, object : CancellationToken() {
             override fun onCanceledRequested(p0: OnTokenCanceledListener) = CancellationTokenSource().token
             override fun isCancellationRequested() = false })
@@ -47,12 +47,12 @@ class SecondActivity : AppCompatActivity() {
                 latLong = if (location == null) "NULL"
                 else location.latitude.toString()+ location.longitude.toString()
 
-               Toast.makeText(this, "success "+latLong, Toast.LENGTH_LONG).show()
+               Toast.makeText(this, "success $latLong", Toast.LENGTH_LONG).show()
             }
         loc.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, object : CancellationToken() {
             override fun onCanceledRequested(p0: OnTokenCanceledListener) = CancellationTokenSource().token
             override fun isCancellationRequested() = false })
-            .addOnFailureListener(){
+            .addOnFailureListener {
                 latLong = "FAIL"
                 Toast.makeText(this, "fail", Toast.LENGTH_LONG).show()
             }
