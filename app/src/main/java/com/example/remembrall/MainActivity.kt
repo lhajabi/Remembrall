@@ -1,25 +1,33 @@
 package com.example.remembrall
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.Button
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //MAIN ACT VALUES
+        val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         val buttonLoc: Button= findViewById (R.id.button)
         val buttonAdd: Button= findViewById (R.id.add_data)
         var flag : String = "Grocery Store"
         val spinnerVal : Spinner = findViewById(R.id.spinnerV)
         var options = arrayOf("Grocery Store","Pharmacy","Bakery","Gas Station","Roastery")
         spinnerVal.adapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,options )
-
         spinnerVal.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 flag = options.get(p2)
@@ -28,7 +36,6 @@ class MainActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         }
-
 
         buttonLoc.setOnClickListener{
             val loc=Intent(this,SecondActivity::class.java)
