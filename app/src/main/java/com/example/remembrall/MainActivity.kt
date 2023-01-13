@@ -12,7 +12,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var myDB: MyDatabaseHelper
-    var id: ArrayList<String>? = null
+    private lateinit var myLocDB: LocationDatabaseHelper
+    lateinit var id: ArrayList<String>
     private lateinit var errand: ArrayList<String>
     private lateinit var description: ArrayList<String>
     private lateinit var customAdapter: CustomAdapter
@@ -35,14 +36,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(loc)
         }
 
+        this.myLocDB = LocationDatabaseHelper(this)
         this.myDB = MyDatabaseHelper(this)
-        this.id = java.util.ArrayList()
+        this.id = java.util.ArrayList<String>()
         this.errand = java.util.ArrayList<String>()
         this.description = java.util.ArrayList<String>()
 
         storeDataInArrays()
 
-        customAdapter = CustomAdapter(this, this, id!!, errand, description)
+        customAdapter = CustomAdapter(this, this, id, errand, description)
         recyclerView.adapter = customAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
@@ -88,6 +90,8 @@ class MainActivity : AppCompatActivity() {
         ) { _, _ ->
             val myDB = MyDatabaseHelper(this)
             myDB.deleteAllData()
+            val myLocDB = LocationDatabaseHelper(this)
+            myLocDB.deleteAllData()
             //Refresh Activity
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

@@ -9,6 +9,7 @@ import android.widget.Toast
 
 class MyDatabaseHelper(private val context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+
     override fun onCreate(db: SQLiteDatabase) {
         val query = "CREATE TABLE " + TABLE_NAME +
                 " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -45,12 +46,12 @@ class MyDatabaseHelper(private val context: Context) :
         return cursor
     }
 
-    fun updateData(row_id: String, errand: String, description: String) {
+    fun updateData(id: String, errand: String, description: String) {
         val db = this.writableDatabase
         val cv = ContentValues()
         cv.put(COLUMN_ERRAND, errand)
         cv.put(COLUMN_DESC, description)
-        val result = db.update(TABLE_NAME, cv, "id=?", arrayOf(row_id)).toLong()
+        val result = db.update(TABLE_NAME, cv, "id=?", arrayOf(id)).toLong()
         if (result == -1L) {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         } else {
