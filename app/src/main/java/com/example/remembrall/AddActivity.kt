@@ -18,6 +18,8 @@ class AddActivity : AppCompatActivity() {
                 errand.text.toString().trim(),
                 description.text.toString().trim(),
             )
+            errand.text.clear()
+            description.text.clear()
         }
     }
 }

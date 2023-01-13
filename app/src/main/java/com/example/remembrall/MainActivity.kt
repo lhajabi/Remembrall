@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -25,7 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         //MAIN ACT VALUES
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
-        val buttonLoc: Button= findViewById (R.id.button)
+        val buttonLoc: Button= findViewById (R.id.location_button)
+        val buttonRem: Button = findViewById(R.id.remind_button)
+        var flag: Boolean = false
         addButton = findViewById(R.id.add_button)
         addButton.setOnClickListener {
             val add=Intent(this,AddActivity::class.java)
@@ -34,6 +37,18 @@ class MainActivity : AppCompatActivity() {
         buttonLoc.setOnClickListener{
             val loc=Intent(this,SecondActivity::class.java)
             startActivity(loc)
+        }
+        buttonRem.setOnClickListener(){
+            if (flag==false){
+                startService()
+                buttonRem.text="Disable Reminder"
+                flag = !flag
+            }
+            else{
+                stopService()
+                buttonRem.text="Remind Me"
+                flag = !flag
+            }
         }
 
         this.myLocDB = LocationDatabaseHelper(this)
@@ -101,4 +116,14 @@ class MainActivity : AppCompatActivity() {
         builder.create().show()
     }
 
+    fun startService() {
+        val serviceIntent = Intent(this, ForegroundService::class.java)
+        serviceIntent.putExtra("inputExtra", "Remember Errands")
+        ContextCompat.startForegroundService(this, serviceIntent)
+    }
+
+    fun stopService() {
+        val serviceIntent = Intent(this, ForegroundService::class.java)
+        stopService(serviceIntent)
+    }
 }
