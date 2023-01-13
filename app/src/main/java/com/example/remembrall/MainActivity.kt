@@ -1,5 +1,4 @@
 package com.example.remembrall
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     private lateinit var myDB: MyDatabaseHelper
     var id: ArrayList<String>? = null
@@ -19,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var customAdapter: CustomAdapter
     private lateinit var addButton: Button
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         val buttonLoc: Button= findViewById (R.id.button)
         addButton = findViewById(R.id.add_button)
         addButton.setOnClickListener {
-            val add = Intent(this, AddActivity::class.java)
+            val add=Intent(this,AddActivity::class.java)
             startActivity(add)
         }
         buttonLoc.setOnClickListener{
@@ -50,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {

@@ -5,9 +5,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 
-
 class AddActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add)
@@ -17,8 +15,8 @@ class AddActivity : AppCompatActivity() {
         addButton.setOnClickListener {
             val myDB = MyDatabaseHelper(this)
             myDB.addErrand(
-                errand.text.toString(),
-                description.text.toString(),
+                errand.text.toString().trim(),
+                description.text.toString().trim(),
             )
         }
     }

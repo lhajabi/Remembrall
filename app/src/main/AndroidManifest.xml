@@ -20,8 +20,17 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyB9zIqSmx60j02JJb57Ia-idWsGSdr_evw" />
 
-        <activity android:name=".SecondActivity"></activity>
-
+        <activity
+            android:name=".SecondActivity"
+            android:label="Location"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".AddActivity"
+            android:label="Add Errand"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".UpdateActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -4,12 +4,14 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -17,27 +19,30 @@ class CustomAdapter internal constructor(
     private val activity: Activity,
     private val context: Context,
     private val id: ArrayList<*>,
-    private val act: ArrayList<*>,
-    private val Desc: ArrayList<*>
-) : RecyclerView.Adapter<CustomAdapter.MyViewHolder>() {
+    private val errand: ArrayList<*>,
+    private val description: ArrayList<*>
+) :
+    RecyclerView.Adapter<CustomAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(context)
-        val view: View = inflater.inflate(R.layout.my_row, parent, false)
+        val view = inflater.inflate(R.layout.my_row, parent, false)
         return MyViewHolder(view)
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     override fun onBindViewHolder(
         holder: MyViewHolder,
         @SuppressLint("RecyclerView") position: Int
     ) {
-        holder.idTxt.text = id[position].toString()
-        holder.actTxt.text = act[position].toString()
+        holder.id_txt.text = id[position].toString()
+        holder.errand_txt.text = errand[position].toString()
+        holder.description_txt.text = description[position].toString()
         //Recyclerview onClickListener
         holder.mainLayout.setOnClickListener {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, UpdateActivity::class.java)
             intent.putExtra("id", id[position].toString())
-            intent.putExtra("Act", act[position].toString())
-            intent.putExtra("Description", Desc[position].toString())
+            intent.putExtra("errand", errand[position].toString())
+            intent.putExtra("description", description[position].toString())
             activity.startActivityForResult(intent, 1)
         }
     }
@@ -48,13 +53,15 @@ class CustomAdapter internal constructor(
 
     inner class MyViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
-        var idTxt: TextView
-        var actTxt: TextView
+        var id_txt: TextView
+        var errand_txt: TextView
+        var description_txt: TextView
         var mainLayout: LinearLayout
 
         init {
-            idTxt = itemView.findViewById(R.id.book_id_txt)
-            actTxt = itemView.findViewById(R.id.book_title_txt)
+            id_txt = itemView.findViewById(R.id.book_id_txt)
+            errand_txt = itemView.findViewById(R.id.book_title_txt)
+            description_txt = itemView.findViewById(R.id.book_author_txt)
             mainLayout = itemView.findViewById(R.id.mainLayout)
             //Animate Recyclerview
             val translateAnim = AnimationUtils.loadAnimation(

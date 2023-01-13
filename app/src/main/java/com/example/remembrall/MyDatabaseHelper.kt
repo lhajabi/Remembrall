@@ -50,7 +50,7 @@ class MyDatabaseHelper(private val context: Context) :
         val cv = ContentValues()
         cv.put(COLUMN_ERRAND, errand)
         cv.put(COLUMN_DESC, description)
-        val result = db.update(TABLE_NAME, cv, "_id=?", arrayOf(row_id)).toLong()
+        val result = db.update(TABLE_NAME, cv, "id=?", arrayOf(row_id)).toLong()
         if (result == -1L) {
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show()
         } else {
@@ -60,7 +60,7 @@ class MyDatabaseHelper(private val context: Context) :
 
     fun deleteOneRow(row_id: String) {
         val db = this.writableDatabase
-        val result = db.delete(TABLE_NAME, "_id=?", arrayOf(row_id)).toLong()
+        val result = db.delete(TABLE_NAME, "id=?", arrayOf(row_id)).toLong()
         if (result == -1L) {
             Toast.makeText(context, "Failed to Delete.", Toast.LENGTH_SHORT).show()
         } else {
