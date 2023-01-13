@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/errand_input" />
 
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/add_button"
         android:layout_width="match_parent"
         android:layout_height="70dp"

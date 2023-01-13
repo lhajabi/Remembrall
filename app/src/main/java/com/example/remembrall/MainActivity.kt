@@ -8,6 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var myDB: MyDatabaseHelper
@@ -15,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var errand: ArrayList<String>
     private lateinit var description: ArrayList<String>
     private lateinit var customAdapter: CustomAdapter
-    private lateinit var addButton: Button
+    private lateinit var addButton: FloatingActionButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
